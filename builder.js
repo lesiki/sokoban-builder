@@ -67,10 +67,10 @@ var Builder = function() {
 		for(y=0; y < gridSize; y++) {
 			for(x=0; x < gridSize; x++) {
 				character = tileLayout[y][x];
-				if(character === 'x') {
+				if(character === '#') {
 					functionToApply = 'barrier';
 				}
-				else if(character === 'p') {
+				else if(character === '$') {
 					functionToApply = 'player';
 				}
 				else if(character === '+') {
@@ -100,11 +100,58 @@ var Builder = function() {
 	getURLParameter = function(name) {
 		  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
 	},
+	generatePlayerModel = function() {
+		var model = [];
+		var x, y;
+		for(y=0; y < gridSize; y++) {
+			var row = [];
+			for(x=0; x < gridSize; x++) {
+				console.log(x + "," + y);
+				var classes = $('[data-x=' + x + '][data-y=' + y + ']').attr('class');
+				var value = $('[data-x=' + x + '][data-y=' + y + '] input').val();
+				var symbol;
+				if(classes.indexOf('plus') >= 0) {
+					symbol = '+';
+				}
+				else if(classes.indexOf('minus') >= 0) {
+					symbol = '-';
+				}
+				else if(classes.indexOf('times') >= 0) {
+					symbol = '*';
+				}
+				else if(classes.indexOf('player') >= 0) {
+					symbol = '$';
+				}
+				else if(classes.indexOf('barrier') >= 0) {
+					symbol = '#';
+				}
+				else if(classes.indexOf('target') >= 0) {
+					symbol = String.fromCharCode(96 + parseInt(val));
+				}
+				else if(classes.indexOf('number') >= 0) {
+					symbol = value;
+				}
+				else {
+					symbol = ' ';
+				}
+				row.push(symbol);
+			}
+			model.push(row);
+		}
+		console.log(JSON.stringify(model));
+		var url = window.location.protocol
+			+ "//"
+			+ window.location.host
+			+ window.location.pathname
+			+ '?g=' + encodeURIComponent(JSON.stringify(model));
+		history.pushState({dummy: true}, jQuery(document).find('title').text(), + url);
+	},
 	init = function(tileLayout) {
 		$('#resize').click(function() {
 			resizeGrid($('[name=size]').val());
 		});
 		$('.function').click(switchFunction);
+		$('#save').click(generatePlayerModel);
 		if(tileLayout !== undefined) {
 			resizeGrid(tileLayout.length);
 			layout(tileLayout);
