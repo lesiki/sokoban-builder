@@ -168,7 +168,7 @@ var Builder = function() {
 			layout(tileLayout);
 		}
 		else {
-			resizeGrid(8);
+			resizeGrid(10);
 		}
 	};
 	var grid = getURLParameter('g');
