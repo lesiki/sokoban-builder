@@ -144,7 +144,7 @@ var Builder = function() {
 			+ window.location.host
 			+ window.location.pathname
 			+ '?g=' + encodeURIComponent(JSON.stringify(model));
-		history.pushState({dummy: true}, jQuery(document).find('title').text(), + url);
+		history.pushState({dummy: true}, jQuery(document).find('title').text(), url);
 	},
 	init = function(tileLayout) {
 		$('#resize').click(function() {
