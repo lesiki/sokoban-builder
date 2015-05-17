@@ -97,17 +97,30 @@ var Builder = function() {
 			}
 		}
 	},
-	init = function(initGridSize, tileLayout) {
+	getURLParameter = function(name) {
+		  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+	},
+	init = function(tileLayout) {
 		$('#resize').click(function() {
 			resizeGrid($('[name=size]').val());
 		});
 		$('.function').click(switchFunction);
-		resizeGrid(initGridSize || 10);
 		if(tileLayout !== undefined) {
+			resizeGrid(tileLayout.length);
 			layout(tileLayout);
 		}
+		else {
+			resizeGrid(8);
+		}
 	};
-	init(4, [['x', 'x', 'x', 'x'], ['p', 'x', 'x', 'x',], ['x', '3', '2', 'x'], ['x', 'x', '+', 'e']]);
+	var grid = getURLParameter('g');
+	if(grid === null) {
+		init();
+	}
+	else {
+		grid = JSON.parse(grid);
+		init(grid);
+	}
 },
 
 builder;
