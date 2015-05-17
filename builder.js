@@ -1,40 +1,41 @@
 var Builder = function() {
-	var applyFunction = function() {
+	var applyFunction = function(x,y,func,numericValue) {
 		var gridSize, tileSize;
-		var currentFunction = $('.function.selected').attr('data-function');
+		var currentFunction = func || $('.function.selected').attr('data-function');
 		if(typeof currentFunction === 'undefined' || currentFunction === '') {
 			return;
 		}
-		$(this).removeClass().addClass('tile').html('');
+		var target = $(this).hasClass('tile') ? $(this) : $('[data-x=' + x + '][data-y=' + y + ']');
+		target.removeClass().addClass('tile').html('');
 		switch(currentFunction) {
 			case 'plus':
-				$(this).addClass('plus').html('+');
+				target.addClass('plus').html('+');
 				break;
 			case 'minus':
-				$(this).addClass('minus').html('-');
+				target.addClass('minus').html('-');
 				break;
 			case 'times':
-				$(this).addClass('times').html('x');
+				target.addClass('times').html('x');
 				break;
 			case 'player':
 				$('.tile.player').removeClass('player').addClass('placeholder');
-				$(this).addClass('player');
+				target.addClass('player');
 				break;
 			case 'barrier':
-				$(this).addClass('barrier');
+				target.addClass('barrier');
 				break;
 			case 'target':
-				$(this).addClass('target');
-				$(this).html('<input type="text" value="1"></input>');
+				target.addClass('target');
+				target.html('<input type="text" value="' + (numericValue || 1) + '"></input>');
 				disableFunction();
 				break;
 			case 'number':
-				$(this).addClass('number');
-				$(this).html('<input type="text" value="1"></input>');
+				target.addClass('number');
+				target.html('<input type="text" value="' + (numericValue || 1) + '"></input>');
 				disableFunction();
 				break;
 			case 'delete':
-				$(this).addClass('placeholder');
+				target.addClass('placeholder');
 				break;
 		}
 	},
@@ -61,14 +62,52 @@ var Builder = function() {
 		}
 		$('div.tile').click(applyFunction);
 	},
-	init = function() {
+	layout = function(tileLayout) {
+		var functionToApply, character, numericValue;
+		for(y=0; y < gridSize; y++) {
+			for(x=0; x < gridSize; x++) {
+				character = tileLayout[y][x];
+				if(character === 'x') {
+					functionToApply = 'barrier';
+				}
+				else if(character === 'p') {
+					functionToApply = 'player';
+				}
+				else if(character === '+') {
+					functionToApply = 'plus';
+				}
+				else if(character === '-') {
+					functionToApply = 'minus';
+				}
+				else if(character === '*') {
+					functionToApply = 'times';
+				}
+				else if(!isNaN(parseInt(character))) {
+					functionToApply = 'number';
+					numericValue = parseInt(character);
+				}
+				else if(character >= 'a' && character <= 'z') {
+					functionToApply = 'target';
+					numericValue = character.charCodeAt(0) - 96; // a-> 1, b -> 2 etc
+				}
+				else if(character === '0') {
+					functionToApply = undefined;
+				}
+				applyFunction(x, y, functionToApply, numericValue);
+			}
+		}
+	},
+	init = function(initGridSize, tileLayout) {
 		$('#resize').click(function() {
 			resizeGrid($('[name=size]').val());
 		});
 		$('.function').click(switchFunction);
-		resizeGrid(10);
+		resizeGrid(initGridSize || 10);
+		if(tileLayout !== undefined) {
+			layout(tileLayout);
+		}
 	};
-	init();
+	init(4, [['x', 'x', 'x', 'x'], ['p', 'x', 'x', 'x',], ['x', '3', '2', 'x'], ['x', 'x', '+', 'e']]);
 },
 
 builder;
