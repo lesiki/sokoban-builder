@@ -39,3 +39,27 @@ div.tile {
 	background-color:#fdcb25;
 	color:#420;
 }
+.player {
+	background-color:#da3738;
+}
+.barrier {
+	background-color:#333;
+}
+.tile input[type=text] {
+	width:100%;
+	text-align:center;
+	background:none;
+	border:none;
+}
+.number {
+	background-color:#2f5b36;
+}
+.number input {
+	color:#b5ccb9;
+}
+.target {
+	background-color:#b5ccb9;
+}
+.target input {
+	color:#2f5b36;
+}

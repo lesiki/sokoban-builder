@@ -2,10 +2,10 @@ var Builder = function() {
 	var applyFunction = function() {
 		var gridSize, tileSize;
 		var currentFunction = $('.function.selected').attr('data-function');
-		if(typeof currentFunction === 'undefined' || currentFunction == '') {
+		if(typeof currentFunction === 'undefined' || currentFunction === '') {
 			return;
 		}
-		$(this).removeClass().addClass('tile');
+		$(this).removeClass().addClass('tile').html('');
 		switch(currentFunction) {
 			case 'plus':
 				$(this).addClass('plus').html('+');
@@ -16,6 +16,26 @@ var Builder = function() {
 			case 'times':
 				$(this).addClass('times').html('x');
 				break;
+			case 'player':
+				$('.tile.player').removeClass('player').addClass('placeholder');
+				$(this).addClass('player');
+				break;
+			case 'barrier':
+				$(this).addClass('barrier');
+				break;
+			case 'target':
+				$(this).addClass('target');
+				$(this).html('<input type="text" value="1"></input>');
+				disableFunction();
+				break;
+			case 'number':
+				$(this).addClass('number');
+				$(this).html('<input type="text" value="1"></input>');
+				disableFunction();
+				break;
+			case 'delete':
+				$(this).addClass('placeholder');
+				break;
 		}
 	},
 	switchFunction = function() {
@@ -24,6 +44,9 @@ var Builder = function() {
 		if(previous.attr('data-function') != $(this).attr('data-function')) {
 			$(this).addClass('selected');
 		}
+	},
+	disableFunction = function() {
+		$('.function.selected').removeClass('selected');
 	},
 	resizeGrid = function(newSize) {
 		var grid = $('#grid-wrap');
