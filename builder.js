@@ -1,6 +1,7 @@
 var Builder = function() {
 	var applyFunction = function(x,y,func,numericValue) {
 		var gridSize, tileSize;
+		var levelModelJson;
 		var currentFunction = func || $('.function.selected').attr('data-function');
 		if(typeof currentFunction === 'undefined' || currentFunction === '') {
 			return;
@@ -138,13 +139,17 @@ var Builder = function() {
 			}
 			model.push(row);
 		}
-		console.log(JSON.stringify(model));
+		levelModelJson = JSON.stringify(model);
 		var url = window.location.protocol
 			+ "//"
 			+ window.location.host
 			+ window.location.pathname
-			+ '?g=' + encodeURIComponent(JSON.stringify(model));
+			+ '?g=' + encodeURIComponent(levelModelJson);
 		history.pushState({dummy: true}, jQuery(document).find('title').text(), url);
+	},
+	launchPlayer = function() {
+		generatePlayerModel();
+		$(this).attr('href', 'http://lesiki.github.io/maths-sokoban?g=' + encodeURIComponent(levelModelJson));
 	},
 	init = function(tileLayout) {
 		$('#resize').click(function() {
@@ -157,6 +162,7 @@ var Builder = function() {
 		});
 		$('.function').click(switchFunction);
 		$('#save').click(generatePlayerModel);
+		$('#test').click(launchPlayer);
 		if(tileLayout !== undefined) {
 			resizeGrid(tileLayout.length);
 			layout(tileLayout);
