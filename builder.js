@@ -53,7 +53,7 @@ var Builder = function() {
 		var grid = $('#grid-wrap');
 		var x=0, y=0;
 		gridSize = newSize;
-		tileSize = grid.width() / gridSize;
+		tileSize = (grid.width() / gridSize) - 1;
 		grid.html('');
 		for(y=0; y < gridSize; y++) {
 			for(x=0; x < gridSize; x++) {
