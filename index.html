@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="builder.js"></script>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="builder.css" />
+	<title>Sokoban level builder</title>
+</head>
+<body>
+	<div id="grid-wrap">
+		nothing
+	</div><div id="controls-wrap">
+	<div class="input-group">
+		<span class="input-group-addon" id="basic-addon1">#</span>
+		<input type="text" class="form-control" placeholder="Grid size" name="size" aria-describedby="basic-addon1">
+		<span class="input-group-btn">
+			<button id="resize" class="btn btn-default" type="button">Redraw</button>
+		</span>
+	</div>
+	<div>
+		<div class="btn-group btn-group-justified" role="group" aria-label="...">
+			<a type="button" class="btn btn-default"><i class="fa fa-plus"></i><br/>Plus</a>
+			<a type="button" class="btn btn-default"><i class="fa fa-minus"></i><br/>Minus</a>
+			<a type="button" class="btn btn-default"><i class="fa fa-times"></i><br/>Times</a>
+			<a type="button" class="btn btn-default"><i class="fa fa-slack"></i><br/>Number</a>
+		</div>
+		<div class="btn-group btn-group-justified" role="group" aria-label="...">
+			<a type="button" class="btn btn-default"><i class="fa fa-user"></i><br/>Player</a>
+			<a type="button" class="btn btn-default"><i class="fa fa-ban"></i><br/>Barrier</a>
+			<a type="button" class="btn btn-default"><i class="fa fa-bullseye"></i><br/>Target</a>
+			<a type="button" class="btn btn-default"><i class="fa fa-eraser"></i><br/>Delete</a>
+		</div>
+	</div>
+</body>
+</html>

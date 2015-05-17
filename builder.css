@@ -1,0 +1,25 @@
+* {
+	box-sizing:border-box;
+}
+body {
+	margin:0;
+	padding:5px 10px;
+}
+#grid-wrap,#controls-wrap {
+	width:50%;
+	margin:0;
+	padding:10px;
+	display:inline-block;
+	vertical-align: top;
+}
+#grid-wrap {
+	font-size:0;
+}
+div.tile {
+	display:inline-block;
+	margin:0;
+	border:1px solid #666;
+}
+.tile.placeholder {
+	background-color:#555;
+}
