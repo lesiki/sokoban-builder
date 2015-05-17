@@ -126,7 +126,7 @@ var Builder = function() {
 					symbol = '#';
 				}
 				else if(classes.indexOf('target') >= 0) {
-					symbol = String.fromCharCode(96 + parseInt(val));
+					symbol = String.fromCharCode(96 + parseInt(value));
 				}
 				else if(classes.indexOf('number') >= 0) {
 					symbol = value;
