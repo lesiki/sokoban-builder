@@ -90,7 +90,7 @@ var Builder = function() {
 					functionToApply = 'target';
 					numericValue = character.charCodeAt(0) - 96; // a-> 1, b -> 2 etc
 				}
-				else if(character === '0') {
+				else if(character === ' ') {
 					functionToApply = undefined;
 				}
 				applyFunction(x, y, functionToApply, numericValue);
