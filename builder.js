@@ -149,6 +149,11 @@ var Builder = function() {
 	init = function(tileLayout) {
 		$('#resize').click(function() {
 			resizeGrid($('[name=size]').val());
+			var url = window.location.protocol
+				+ "//"
+				+ window.location.host
+				+ window.location.pathname;
+			history.pushState({dummy: true}, jQuery(document).find('title').text(), url);
 		});
 		$('.function').click(switchFunction);
 		$('#save').click(generatePlayerModel);
