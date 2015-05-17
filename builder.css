@@ -4,6 +4,7 @@
 body {
 	margin:0;
 	padding:5px 10px;
+	background-color:#efefef;
 }
 #grid-wrap,#controls-wrap {
 	width:50%;
@@ -15,11 +16,26 @@ body {
 #grid-wrap {
 	font-size:0;
 }
+.function.selected {
+	color:#d5d9e0;
+	background-color:#303f5f;
+}
 div.tile {
 	display:inline-block;
 	margin:0;
 	border:1px solid #666;
+	transition:all 0.3s;
+	color:#222;
+	vertical-align:top;
+	text-align:center;
 }
 .tile.placeholder {
 	background-color:#555;
+}
+.tile.placeholder:hover {
+	background-color:#777;
+}
+.plus,.minus,.times {
+	background-color:#fdcb25;
+	color:#420;
 }
