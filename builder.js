@@ -170,6 +170,52 @@ var Builder = function() {
 		else {
 			resizeGrid(10);
 		}
+		$(document).keyup(function(evt) {
+			if(evt.keyCode === 74) {
+				toAndroidJson();
+			}
+		});
+	},
+	toAndroidJson = function() {
+		var model = {
+			"width": gridSize,
+			"height": gridSize,
+			"blocks": []
+		};
+		for(y=0; y < gridSize; y++) {
+			for(x=0; x < gridSize; x++) {
+				var block = $('[data-x=' + x + '][data-y=' + y + ']');
+				var gridElement = { "x": x, "y": (gridSize - 1) - y };
+				if(block.hasClass('plus')) {
+					gridElement.type = 'PLUS';
+				}
+				else if(block.hasClass('minus')) {
+					gridElement.type = 'MINUS';
+				}
+				else if(block.hasClass('times')) {
+					gridElement.type = 'TIMES';
+				}
+				else if(block.hasClass('number')) {
+					gridElement.type = 'NUMBER';
+					gridElement.value = parseInt($(block).find('input').val());
+				}
+				else if(block.hasClass('target')) {
+					gridElement.type = 'TARGET';
+					gridElement.value = parseInt($(block).find('input').val());
+				}
+				else if(block.hasClass('barrier')) {
+					gridElement.type = 'DEAD';
+				}
+				else if(block.hasClass('player')) {
+					gridElement.type = 'DYLAN';
+				}
+				if(!block.hasClass('placeholder')) {
+					model.blocks.push(gridElement);
+				}
+			}
+		}
+		console.log(JSON.stringify(model));
+		$('#androidJsonTarget').html(JSON.stringify(model)).show().focus().select();
 	};
 	var grid = getURLParameter('g');
 	if(grid === null) {

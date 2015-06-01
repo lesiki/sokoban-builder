@@ -63,3 +63,8 @@ div.tile {
 .target input {
 	color:#2f5b36;
 }
+#androidJsonTarget {
+	display:none;
+	width:100%;
+	rows:20;
+}

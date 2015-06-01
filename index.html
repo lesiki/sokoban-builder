@@ -12,34 +12,36 @@
 	<div id="grid-wrap">
 		nothing
 	</div><div id="controls-wrap">
-	<div class="input-group">
-		<span class="input-group-addon" id="basic-addon1">#</span>
-		<input type="text" class="form-control" placeholder="Grid size" name="size" aria-describedby="basic-addon1">
-		<span class="input-group-btn">
-			<button id="resize" class="btn btn-default" type="button">Clear grid & Redraw</button>
-		</span>
-	</div>
-	<br/>
-	<div>
-		<div class="btn-group btn-group-justified" role="group" aria-label="...">
-			<a type="button" data-function="plus" class="btn btn-default function"><i class="fa fa-plus"></i><br/>Plus</a>
-			<a type="button" data-function="minus" class="btn btn-default function"><i class="fa fa-minus"></i><br/>Minus</a>
-			<a type="button" data-function="times" class="btn btn-default function"><i class="fa fa-times"></i><br/>Times</a>
-			<a type="button" data-function="number" class="btn btn-default function"><i class="fa fa-slack"></i><br/>Number</a>
+		<div class="input-group">
+			<span class="input-group-addon" id="basic-addon1">#</span>
+			<input type="text" class="form-control" placeholder="Grid size" name="size" aria-describedby="basic-addon1">
+			<span class="input-group-btn">
+				<button id="resize" class="btn btn-default" type="button">Clear grid & Redraw</button>
+			</span>
 		</div>
-		<div class="btn-group btn-group-justified" role="group" aria-label="...">
-			<a type="button" data-function="player" class="btn btn-default function"><i class="fa fa-user"></i><br/>Player</a>
-			<a type="button" data-function="barrier" class="btn btn-default function"><i class="fa fa-ban"></i><br/>Barrier</a>
-			<a type="button" data-function="target" class="btn btn-default function"><i class="fa fa-bullseye"></i><br/>Target</a>
-			<a type="button" data-function="delete" class="btn btn-default function"><i class="fa fa-eraser"></i><br/>Delete</a>
+		<br/>
+		<div>
+			<div class="btn-group btn-group-justified" role="group" aria-label="...">
+				<a type="button" data-function="plus" class="btn btn-default function"><i class="fa fa-plus"></i><br/>Plus</a>
+				<a type="button" data-function="minus" class="btn btn-default function"><i class="fa fa-minus"></i><br/>Minus</a>
+				<a type="button" data-function="times" class="btn btn-default function"><i class="fa fa-times"></i><br/>Times</a>
+				<a type="button" data-function="number" class="btn btn-default function"><i class="fa fa-slack"></i><br/>Number</a>
+			</div>
+			<div class="btn-group btn-group-justified" role="group" aria-label="...">
+				<a type="button" data-function="player" class="btn btn-default function"><i class="fa fa-user"></i><br/>Player</a>
+				<a type="button" data-function="barrier" class="btn btn-default function"><i class="fa fa-ban"></i><br/>Barrier</a>
+				<a type="button" data-function="target" class="btn btn-default function"><i class="fa fa-bullseye"></i><br/>Target</a>
+				<a type="button" data-function="delete" class="btn btn-default function"><i class="fa fa-eraser"></i><br/>Delete</a>
+			</div>
 		</div>
-	</div>
-	<br/>
-	<div>
-		<div class="btn-group btn-group-justified" role="group" aria-label="...">
-			<a id="save" class="btn btn-primary">Save</a>
-			<a href="http://lesiki.github.io/maths-sokoban" target="_blank" id="test" class="btn btn-primary">Play this level</a>
+		<br/>
+		<div>
+			<div class="btn-group btn-group-justified" role="group" aria-label="...">
+				<a id="save" class="btn btn-primary">Save</a>
+				<a href="http://lesiki.github.io/maths-sokoban" target="_blank" id="test" class="btn btn-primary">Play this level</a>
+			</div>
 		</div>
+		<textarea id="androidJsonTarget"></textarea>
 	</div>
 	<script type="text/javascript" src="builder.js"></script>
 </body>
