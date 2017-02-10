@@ -149,7 +149,7 @@ var Builder = function() {
 	},
 	launchPlayer = function() {
 		generatePlayerModel();
-		$(this).attr('href', 'http://lesiki.github.io/maths-sokoban?g=' + encodeURIComponent(levelModelJson));
+		$(this).attr('href', 'http://lesikidev.com/maths-sokoban?g=' + encodeURIComponent(levelModelJson));
 	},
 	init = function(tileLayout) {
 		$('#resize').click(function() {
