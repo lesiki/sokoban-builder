@@ -1,6 +1,6 @@
 var Builder = function() {
 	var applyFunction = function(x,y,func,numericValue) {
-		var gridSize, tileSize;
+		var gridWidth, gridHeight, tileSize;
 		var levelModelJson;
 		var currentFunction = func || $('.function.selected').attr('data-function');
 		if(typeof currentFunction === 'undefined' || currentFunction === '') {
@@ -50,14 +50,15 @@ var Builder = function() {
 	disableFunction = function() {
 		$('.function.selected').removeClass('selected');
 	},
-	resizeGrid = function(newSize) {
+	resizeGrid = function(newWidth, newHeight) {
 		var grid = $('#grid-wrap');
 		var x=0, y=0;
-		gridSize = newSize;
-		tileSize = (grid.width() / gridSize) - 1;
+		gridWidth = newWidth;
+		gridHeight = newHeight;
+		tileSize = (grid.width() / gridWidth) - 1;
 		grid.html('');
-		for(y=0; y < gridSize; y++) {
-			for(x=0; x < gridSize; x++) {
+		for(y=0; y < gridHeight; y++) {
+			for(x=0; x < gridWidth; x++) {
 				grid.append('<div data-x="' + x + '" data-y="' + y + '" class="tile placeholder" style="width: ' + tileSize + 'px; height: ' + tileSize + 'px; font-size: ' + tileSize * 0.7 + 'px; line-height: ' + tileSize * 0.8 +  'px;"></div>');
 			}
 		}
@@ -65,8 +66,8 @@ var Builder = function() {
 	},
 	layout = function(tileLayout) {
 		var functionToApply, character, numericValue;
-		for(y=0; y < gridSize; y++) {
-			for(x=0; x < gridSize; x++) {
+		for(y=0; y < gridHeight; y++) {
+			for(x=0; x < gridWidth; x++) {
 				character = tileLayout[y][x];
 				if(character === '#') {
 					functionToApply = 'barrier';
@@ -103,14 +104,14 @@ var Builder = function() {
 	},
 	exportAndroidJson = function() {
 		var model = {
-			width: gridSize,
-			height: gridSize,
+			width: gridWidth,
+			height: gridHeight,
 			blocks: []
 		};
 		var x, y;
-		for(y=0; y < gridSize; y++) {
+		for(y=0; y < gridHeight; y++) {
 			var row = [];
-			for(x=0; x < gridSize; x++) {
+			for(x=0; x < gridWidth; x++) {
 				var classes = $('[data-x=' + x + '][data-y=' + y + ']').attr('class');
 				var value = $('[data-x=' + x + '][data-y=' + y + '] input').val();
 				if(classes.indexOf('plus') >= 0) {
@@ -173,9 +174,9 @@ var Builder = function() {
 	generatePlayerModel = function() {
 		var model = [];
 		var x, y;
-		for(y=0; y < gridSize; y++) {
+		for(y=0; y < gridHeight; y++) {
 			var row = [];
-			for(x=0; x < gridSize; x++) {
+			for(x=0; x < gridWidth; x++) {
 				console.log(x + "," + y);
 				var classes = $('[data-x=' + x + '][data-y=' + y + ']').attr('class');
 				var value = $('[data-x=' + x + '][data-y=' + y + '] input').val();
@@ -222,7 +223,7 @@ var Builder = function() {
 	},
 	init = function(tileLayout) {
 		$('#resize').click(function() {
-			resizeGrid($('[name=size]').val());
+			resizeGrid($('[name=width]').val(), $('[name=height]').val());
 			var url = window.location.protocol
 				+ "//"
 				+ window.location.host
@@ -234,11 +235,11 @@ var Builder = function() {
 		$('#export').click(exportAndroidJson);
 		$('#test').click(launchPlayer);
 		if(tileLayout !== undefined) {
-			resizeGrid(tileLayout.length);
+			resizeGrid(tileLayout.length, tileLayout.length);
 			layout(tileLayout);
 		}
 		else {
-			resizeGrid(10);
+			resizeGrid(10, 10);
 		}
 		$(document).keyup(function(evt) {
 			if(evt.keyCode === 74) {
@@ -248,14 +249,14 @@ var Builder = function() {
 	},
 	toAndroidJson = function() {
 		var model = {
-			"width": gridSize,
-			"height": gridSize,
+			"width": gridWidth,
+			"height": gridHeight,
 			"blocks": []
 		};
-		for(y=0; y < gridSize; y++) {
-			for(x=0; x < gridSize; x++) {
+		for(y=0; y < gridHeight; y++) {
+			for(x=0; x < gridWidth; x++) {
 				var block = $('[data-x=' + x + '][data-y=' + y + ']');
-				var gridElement = { "x": x, "y": (gridSize - 1) - y };
+				var gridElement = { "x": x, "y": (gridHeight - 1) - y };
 				if(block.hasClass('plus')) {
 					gridElement.type = 'PLUS';
 				}
