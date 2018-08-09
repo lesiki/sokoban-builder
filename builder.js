@@ -101,6 +101,75 @@ var Builder = function() {
 	getURLParameter = function(name) {
 		  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
 	},
+	exportAndroidJson = function() {
+		var model = {
+			width: gridSize,
+			height: gridSize,
+			blocks: []
+		};
+		var x, y;
+		for(y=0; y < gridSize; y++) {
+			var row = [];
+			for(x=0; x < gridSize; x++) {
+				var classes = $('[data-x=' + x + '][data-y=' + y + ']').attr('class');
+				var value = $('[data-x=' + x + '][data-y=' + y + '] input').val();
+				if(classes.indexOf('plus') >= 0) {
+					model.blocks.push({
+						type: "PLUS",
+						x: x,
+						y: y
+					})
+				}
+				else if(classes.indexOf('minus') >= 0) {
+					model.blocks.push({
+						type: "MINUS",
+						x: x,
+						y: y
+					})
+				}
+				else if(classes.indexOf('times') >= 0) {
+					model.blocks.push({
+						type: "TIMES",
+						x: x,
+						y: y
+					})
+				}
+				else if(classes.indexOf('player') >= 0) {
+					model.blocks.push({
+						type: "DYLAN",
+						x: x,
+						y: y
+					})
+				}
+				else if(classes.indexOf('barrier') >= 0) {
+					model.blocks.push({
+						type: "DEAD",
+						x: x,
+						y: y
+					})
+				}
+				else if(classes.indexOf('target') >= 0) {
+					model.blocks.push({
+						type: "TARGET",
+						x: x,
+						y: y,
+						value: parseInt(value)
+					})
+				}
+				else if(classes.indexOf('number') >= 0) {
+					model.blocks.push({
+						type: "NUMBER",
+						x: x,
+						y: y,
+						value: parseInt(value)
+					})
+				}
+			}
+		}
+		$('#android-json').remove();
+		$('#controls-wrap').append('<textarea id="android-json"></textarea>');
+		$('#android-json').text(JSON.stringify(model));
+	},
 	generatePlayerModel = function() {
 		var model = [];
 		var x, y;
@@ -162,6 +231,7 @@ var Builder = function() {
 		});
 		$('.function').click(switchFunction);
 		$('#save').click(generatePlayerModel);
+		$('#export').click(exportAndroidJson);
 		$('#test').click(launchPlayer);
 		if(tileLayout !== undefined) {
 			resizeGrid(tileLayout.length);

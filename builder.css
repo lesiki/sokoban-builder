@@ -16,6 +16,10 @@ body {
 #grid-wrap {
 	font-size:0;
 }
+#android-json {
+	width:100%;
+	margin-top:10px;
+}
 .function.selected {
 	color:#d5d9e0;
 	background-color:#303f5f;
